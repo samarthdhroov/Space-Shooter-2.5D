@@ -11,11 +11,18 @@ public class Player : MonoBehaviour
   
     void Start()
     {
-        transform.position = new Vector3(0, -4.74f, 0);
+        transform.position = new Vector3(0, -4.95f, 0);
         
     }
 
     void Update()
+    {
+        translation();
+        playerMovement();
+    }
+
+
+    void translation()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -32,12 +39,42 @@ public class Player : MonoBehaviour
         
          */
 
-        transform.Translate(direction * _speed * Time.deltaTime); 
+        transform.Translate(direction * _speed * Time.deltaTime);
 
         /*
         Here, the direction vector is what
         transform.translate(vector3) needed as argument. But to make things smoother, we are multiplying
         the vector with speed and time. 
         */
+    }
+
+    void playerMovement()
+    {
+        //Position Checking Code Below for horizontal axis.
+
+        if (transform.position.x > 9.21f)
+        {
+            transform.position = new Vector3(-9.21f, transform.position.y, 0);
+        }
+        else if (transform.position.x < -9.21f)
+        {
+            transform.position = new Vector3(9.21f, transform.position.y, 0);
+
+        }
+
+
+        //Position Checking Code Below for Vertical axis. The commented code is the simple implementation. The clamp fuctioned
+        //allowed to lock the y position in between provided values.
+/*
+        if (transform.position.y > -2.5f)
+        {
+            transform.position = new Vector3(transform.position.x, -2.5f, 0);
+        }
+        else if (transform.position.y < -4.95f)
+        {
+            transform.position = new Vector3(transform.position.x, -4.95f, 0);
+        }*/
+
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -4.95f, -2.5f), 0);
     }
 }
