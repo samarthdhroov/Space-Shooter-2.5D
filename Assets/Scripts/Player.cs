@@ -8,6 +8,11 @@ public class Player : MonoBehaviour
                      // It will allow data to be read as well as override from the inspector.
                      // However, other game objects or scripts would not be able to access it. 
     private float _speed = 15f;
+
+    [SerializeField]
+    private GameObject _laserPrefab;
+    private float _firerate = 0.15f;
+    private float _canFire = -1.0f;
   
     void Start()
     {
@@ -19,6 +24,8 @@ public class Player : MonoBehaviour
     {
         translation();
         playerMovement();
+        fireLaser();
+      
     }
 
 
@@ -76,5 +83,20 @@ public class Player : MonoBehaviour
         }*/
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -4.95f, -2.5f), 0);
+    }
+
+    void fireLaser()
+    {
+
+        /*The cooldown system works by a time controlled firing. It is implemented using Time.time which gives the 
+         duration of time the game has been running and then comparing it with how long the firing can continue. 
+        If the canfire limit is crossed, which means the game has been running more than 0.15 seconds, the next fire 
+        will come after 0.15 seconds.*/
+
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        {
+            _canFire += _firerate;
+            Instantiate(_laserPrefab, this.transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+        }
     }
 }
