@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private GameObject _laserPrefab;
     private float _firerate = 0.15f;
     private float _canFire = -1.0f;
+    private int _lives = 3;
   
     void Start()
     {
@@ -98,5 +99,15 @@ public class Player : MonoBehaviour
             _canFire += _firerate;
             Instantiate(_laserPrefab, this.transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
         }
+    }
+
+    public void damage()
+    {
+        if (_lives < 1)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        _lives -= 1;
     }
 }
