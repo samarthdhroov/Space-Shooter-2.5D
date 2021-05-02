@@ -48,6 +48,8 @@ public class Enemy : MonoBehaviour
                                   // Only if it does, we would destroy the object. If we had not checked this,
                                   // Unity would have shown an error. Try eliminating this check to see the error.
             Destroy(this.gameObject);
+            player.damage();
+            
             }
 
         }

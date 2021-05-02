@@ -14,10 +14,16 @@ public class Player : MonoBehaviour
     private float _firerate = 0.15f;
     private float _canFire = -1.0f;
     private int _lives = 3;
+    private Spawn_Manager spawnManager;
   
     void Start()
     {
         transform.position = new Vector3(0, -4.95f, 0);
+        spawnManager = GameObject.FindGameObjectWithTag("Spawn_Manager").GetComponent<Spawn_Manager>();
+        if(spawnManager == null)
+        {
+            Debug.LogError("Spawn Manager is Null");
+        }
         
     }
 
@@ -105,7 +111,9 @@ public class Player : MonoBehaviour
     {
         if (_lives < 1)
         {
+            spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
+            
         }
         else
         _lives -= 1;

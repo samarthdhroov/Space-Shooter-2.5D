@@ -8,8 +8,9 @@ public class Spawn_Manager : MonoBehaviour
 
     [SerializeField]
     private GameObject _enemyPrefab;
-   /* [SerializeField]
-    private GameObject _enemyContainer;*/
+    [SerializeField]
+    private GameObject _enemyContainer;
+    private bool _StopSpawning = false;
     void Start()
     {
         StartCoroutine(SpawnRoutine());
@@ -24,14 +25,18 @@ public class Spawn_Manager : MonoBehaviour
 
     IEnumerator SpawnRoutine()
     {
-        while (true) // We are not going to exit the loop since we dont want the enemy to stop.
+        while (_StopSpawning == false) //  while (true) - We are not going to exit the loop since we dont want the enemy to stop.
         {
             Vector3 _position = new Vector3(Random.Range(-9.21f, 9.21f), 5.42f, 0);
-            Instantiate(_enemyPrefab,_position, Quaternion.identity);
+            GameObject newEnemy = Instantiate(_enemyPrefab,_position, Quaternion.identity); // This line basically first instantiates an enemy object &
+            newEnemy.transform.parent = _enemyContainer.transform;                         // then we are storing that enemy to another game object. 
             /*yield return null; // Wait 1 frame.*/
-            yield return new WaitForSeconds(5.0f);// Wait for 5 seconds.
+            yield return new WaitForSeconds(3.0f);// Wait for 3 seconds.
         }
-        
-         
+    
+    }
+    public void OnPlayerDeath()
+    {
+        _StopSpawning = true;
     }
 }
