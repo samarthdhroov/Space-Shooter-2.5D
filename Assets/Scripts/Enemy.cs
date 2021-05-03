@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
 
         /*This method only works when trigger was enabled on game objects. Also, we have used the tag from Unity to identify object*/
