@@ -11,14 +11,17 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GameObject _laserPrefab;
+    [SerializeField]
+    private GameObject _trippleshotPrefab;
     private float _firerate = 0.15f;
     private float _canFire = -1.0f;
     private int _lives = 3;
     private Spawn_Manager spawnManager;
+    private bool _trippleshotactive = false;
   
     void Start()
     {
-        transform.position = new Vector3(0, -4.95f, 0);
+        transform.position = new Vector3(0, -4.73f, 0);
         spawnManager = GameObject.FindGameObjectWithTag("Spawn_Manager").GetComponent<Spawn_Manager>();
         if(spawnManager == null)
         {
@@ -66,13 +69,13 @@ public class Player : MonoBehaviour
     {
         //Position Checking Code Below for horizontal axis.
 
-        if (transform.position.x > 9.21f)
+        if (transform.position.x > 9.37f)
         {
-            transform.position = new Vector3(-9.21f, transform.position.y, 0);
+            transform.position = new Vector3(-9.37f, transform.position.y, 0);
         }
-        else if (transform.position.x < -9.21f)
+        else if (transform.position.x < -9.37f)
         {
-            transform.position = new Vector3(9.21f, transform.position.y, 0);
+            transform.position = new Vector3(9.37f, transform.position.y, 0);
 
         }
 
@@ -102,8 +105,16 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
-            _canFire = Time.time +  _firerate;
-            Instantiate(_laserPrefab, this.transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
+
+            _canFire = Time.time + _firerate;
+
+            if (_trippleshotactive == true)
+            {
+                Instantiate(_trippleshotPrefab, transform.position, Quaternion.identity); 
+            }
+            else {  
+            Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
+            }
         }
     }
 
@@ -118,4 +129,18 @@ public class Player : MonoBehaviour
         else
         _lives -= 1;
     }
+
+    public void TripleShotActive()
+    {
+        _trippleshotactive = true;
+        StartCoroutine(TripleShotPowerDownRoutine());
+
+    }
+
+    IEnumerator TripleShotPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _trippleshotactive = false;
+    }
 }
+

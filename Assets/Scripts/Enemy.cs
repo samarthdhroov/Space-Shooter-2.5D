@@ -6,20 +6,11 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private float _speed = 8.5f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+   
     void Update()
     {
-
         downwardMovement();
-        respawn();
-
-        
+        respawn(); 
     }
 
     void downwardMovement()
