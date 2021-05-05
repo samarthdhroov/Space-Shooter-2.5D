@@ -33,7 +33,7 @@ public class PowerUpBehavior : MonoBehaviour
                         player.SpeedBoostActive();
                         break;
                     default:
-                        Debug.Log("Shield");
+                        player.ShieldActive();
                         break;
                 }
             }

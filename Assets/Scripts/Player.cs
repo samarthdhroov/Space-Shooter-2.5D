@@ -16,11 +16,15 @@ public class Player : MonoBehaviour
     private GameObject _trippleshotPrefab;
     private float _firerate = 0.15f;
     private float _canFire = -1.0f;
+    [SerializeField]
     private int _lives = 3;
     private Spawn_Manager spawnManager;
     private bool _trippleshotactive = false;
-    [SerializeField]
     private bool _isSpeedBoostActive = false;
+    private bool _isShieldActive = false;
+    [SerializeField]
+    private GameObject shieldVisual;
+    
   
     void Start()
     {
@@ -126,6 +130,13 @@ public class Player : MonoBehaviour
 
     public void damage()
     {
+        if (_isShieldActive == true)
+        {
+            _isShieldActive = false;
+            shieldVisual.SetActive(false);
+            return;
+        }
+
         if (_lives < 1)
         {
             spawnManager.OnPlayerDeath();
@@ -162,6 +173,13 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
         _isSpeedBoostActive = false;
         _speed /= _multiplier;
+    }
+
+    public void ShieldActive()
+    {
+        _isShieldActive = true;
+        shieldVisual.SetActive(true);
+
     }
 
 }

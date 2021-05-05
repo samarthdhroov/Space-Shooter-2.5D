@@ -43,7 +43,7 @@ public class Spawn_Manager : MonoBehaviour
         while (_StopSpawning == false)
         {
             Vector3 _position = new Vector3(Random.Range(-9.37f, 9.37f), 5.42f, 0);
-            int randomInt = Random.Range(0, 2);
+            int randomInt = Random.Range(0, 3);
             GameObject power = Instantiate(_PowerupContainer[randomInt], _position, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3,8));
         }
