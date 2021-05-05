@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
                      // It will allow data to be read as well as override from the inspector.
                      // However, other game objects or scripts would not be able to access it. 
     private float _speed = 15f;
+    private float _multiplier = 3.5f;
 
     [SerializeField]
     private GameObject _laserPrefab;
@@ -18,6 +19,8 @@ public class Player : MonoBehaviour
     private int _lives = 3;
     private Spawn_Manager spawnManager;
     private bool _trippleshotactive = false;
+    [SerializeField]
+    private bool _isSpeedBoostActive = false;
   
     void Start()
     {
@@ -56,7 +59,10 @@ public class Player : MonoBehaviour
         
          */
 
-        transform.Translate(direction * _speed * Time.deltaTime);
+       
+        
+           transform.Translate(direction * _speed * Time.deltaTime);
+        
 
         /*
         Here, the direction vector is what
@@ -141,6 +147,22 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         _trippleshotactive = false;
+      
     }
+
+
+    public void SpeedBoostActive()
+    {
+        _isSpeedBoostActive = true;
+        _speed *= _multiplier;
+        StartCoroutine(SpeedThrust());
+    }
+    IEnumerator SpeedThrust()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isSpeedBoostActive = false;
+        _speed /= _multiplier;
+    }
+
 }
 

@@ -5,7 +5,8 @@ using UnityEngine;
 public class PowerUpBehavior : MonoBehaviour
 {
     private float _speed = 3f;
-    
+    [SerializeField]
+    private int powerUpId;
     void Update()
     {
         transform.Translate(Vector3.down * Time.deltaTime * _speed);    
@@ -22,8 +23,19 @@ public class PowerUpBehavior : MonoBehaviour
             Destroy(this.gameObject);
             Player player = collision.transform.GetComponent<Player>(); // We are first getting the player component of collision object. Its called getting an instance.
             if(player != null)                                          // Now, just to double check if its all good. 
-            {
-                player.TripleShotActive();                              // If all good, we are activating the method seating in the player script. 
+            {                                        
+                switch(powerUpId)
+                {
+                    case 0:
+                        player.TripleShotActive();
+                        break;
+                    case 1:
+                        player.SpeedBoostActive();
+                        break;
+                    default:
+                        Debug.Log("Shield");
+                        break;
+                }
             }
         }
     }
