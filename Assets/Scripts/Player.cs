@@ -155,11 +155,14 @@ public class Player : MonoBehaviour
         {
             spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
-            
+            _uiManager.DisplayGameOver();
         }
         else
         _lives -= 1;
+
         _uiManager.LivesDisplay(_lives);
+
+     
     }
 
     public void TripleShotActive()

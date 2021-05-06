@@ -19,7 +19,10 @@ public class Spawn_Manager : MonoBehaviour
         StartCoroutine(SpawnPowerupRoutine());
     }
 
- 
+    public void OnPlayerDeath()
+    {
+        _StopSpawning = true;
+    }
 
     IEnumerator SpawnRoutine()
     {
@@ -32,11 +35,7 @@ public class Spawn_Manager : MonoBehaviour
                                                                                             // yield return null; Wait 1 frame.
         }
     
-    }
-    public void OnPlayerDeath()
-    {
-        _StopSpawning = true;
-    }
+    } 
 
     IEnumerator SpawnPowerupRoutine()
     {

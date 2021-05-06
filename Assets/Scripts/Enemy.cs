@@ -5,13 +5,26 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private float _speed = 8.5f;
+    private float _speed = 5.0f;
     private Player _playerObject;
+    private Animator _enemyAnimator;
 
 
     private void Start()
     {
         _playerObject = GameObject.Find("Player").GetComponent<Player>();
+
+        if(_playerObject == null)
+        {
+            Debug.LogError("Player is Null.");
+        }
+
+        _enemyAnimator = GetComponent<Animator>();
+
+        if(_enemyAnimator == null)
+        {
+            Debug.LogError("Enemy is Null.");
+        }
     }
     void Update()
     {
@@ -44,7 +57,9 @@ public class Enemy : MonoBehaviour
             if (player != null) { // We are checking here if the player component that we are trying to access exists. 
                                   // Only if it does, we would destroy the object. If we had not checked this,
                                   // Unity would have shown an error. Try eliminating this check to see the error.
-            Destroy(this.gameObject);
+            _enemyAnimator.SetTrigger("OnEnemyDeath");
+                _speed = 0;
+                Destroy(this.gameObject, 2.30f);
             player.damage();
             
             }
@@ -60,7 +75,9 @@ public class Enemy : MonoBehaviour
                 _playerObject.AddScore(10);
             }
 
-            Destroy(this.gameObject);
+            _enemyAnimator.SetTrigger("OnEnemyDeath");
+            _speed = 0;
+            Destroy(this.gameObject,2.30f);
             
         }
     }
