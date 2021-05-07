@@ -7,6 +7,10 @@ public class PowerUpBehavior : MonoBehaviour
     private float _speed = 3f;
     [SerializeField]
     private int powerUpId;
+    [SerializeField]
+    private AudioClip _PowerUpSound;
+ 
+
     void Update()
     {
         transform.Translate(Vector3.down * Time.deltaTime * _speed);    
@@ -20,9 +24,12 @@ public class PowerUpBehavior : MonoBehaviour
     {
         if (collision.transform.tag == "Player")
         {
-            Destroy(this.gameObject);
+            
             Player player = collision.transform.GetComponent<Player>(); // We are first getting the player component of collision object. Its called getting an instance.
-            if(player != null)                                          // Now, just to double check if its all good. 
+
+            AudioSource.PlayClipAtPoint(_PowerUpSound, transform.position);
+
+            if (player != null)                                          // Now, just to double check if its all good. 
             {                                        
                 switch(powerUpId)
                 {
@@ -36,6 +43,9 @@ public class PowerUpBehavior : MonoBehaviour
                         player.ShieldActive();
                         break;
                 }
+               
+                Destroy(this.gameObject);
+              
             }
         }
     }

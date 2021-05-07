@@ -8,13 +8,19 @@ public class Asteroid : MonoBehaviour
     [SerializeField]
     private GameObject _explosion;
     private Player player;
-    // Start is called before the first frame update
+   /* [SerializeField]
+    private GameObject _AsteroidPrefab;
+    private AudioSource _ExplosionAudio;*/
+    
+   
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
+
+       //_ExplosionAudio = _AsteroidPrefab.GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
+   
     void Update()
     {
         
@@ -38,6 +44,8 @@ public class Asteroid : MonoBehaviour
             player.damage();
             Instantiate(_explosion, transform.position, Quaternion.identity);
         }
+
+      // _ExplosionAudio.Play(0);
     }
 
 

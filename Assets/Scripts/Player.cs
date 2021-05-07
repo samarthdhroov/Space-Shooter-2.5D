@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
     private GameObject rightBurst;
     [SerializeField]
     private GameObject leftBurst;
+  
+    private AudioSource _laserAudio;
 
     
   
@@ -55,6 +57,8 @@ public class Player : MonoBehaviour
         {
             Debug.LogError("Null UI Manager");
         }
+
+        _laserAudio = _laserPrefab.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -145,6 +149,8 @@ public class Player : MonoBehaviour
             else {  
             Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
             }
+
+            _laserAudio.Play(0);
         }
     }
 

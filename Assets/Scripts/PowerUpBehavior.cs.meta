@@ -3,7 +3,8 @@ guid: b7b7814e985a8844d8286e8cb9460807
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _PowerUpSound: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
