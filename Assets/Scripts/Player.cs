@@ -29,6 +29,12 @@ public class Player : MonoBehaviour
 
     private int score;
     private UI_Manager _uiManager;
+    /*private bool _rightEngineFailure = false;
+    private bool _leftEngineFailure = false;*/
+    [SerializeField]
+    private GameObject rightBurst;
+    [SerializeField]
+    private GameObject leftBurst;
 
     
   
@@ -151,14 +157,28 @@ public class Player : MonoBehaviour
             return;
         }
 
+        if(_lives == 2)
+        {
+           // _rightEngineFailure = true;
+            rightBurst.SetActive(true);
+        } 
+        
+        if (_lives == 1)
+        {
+           // _leftEngineFailure = true;
+            leftBurst.SetActive(true);
+        }
+        
         if (_lives < 1)
         {
             spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
             _uiManager.DisplayGameOver();
         }
-        else
+        else { 
         _lives -= 1;
+        }
+
 
         _uiManager.LivesDisplay(_lives);
 

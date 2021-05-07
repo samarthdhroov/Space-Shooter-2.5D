@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class Spawn_Manager : MonoBehaviour
 {
-  
+
     [SerializeField]
     private GameObject _enemyPrefab;
     [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
     private GameObject[] _PowerupContainer;
+    [SerializeField]
+    private GameObject _AsteroidPrefab;
 
     private bool _StopSpawning = false;
     void Start()
     {
         StartCoroutine(SpawnRoutine());
         StartCoroutine(SpawnPowerupRoutine());
+        StartCoroutine(SpawnAsteroid());
     }
 
     public void OnPlayerDeath()
@@ -45,6 +48,17 @@ public class Spawn_Manager : MonoBehaviour
             int randomInt = Random.Range(0, 3);
             GameObject power = Instantiate(_PowerupContainer[randomInt], _position, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3,8));
+        }
+    }
+
+    IEnumerator SpawnAsteroid()
+    {
+        while(_StopSpawning == false)
+        {
+            Vector3 _position = new Vector3(Random.Range(-9.37f, 9.37f), 6.5f, 0);
+            int randomInt = Random.Range(0, 3);
+            GameObject power = Instantiate(_AsteroidPrefab,_position, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(5, 15));
         }
     }
 }
