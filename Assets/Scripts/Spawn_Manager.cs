@@ -31,7 +31,7 @@ public class Spawn_Manager : MonoBehaviour
     {
         while (_StopSpawning == false)                                                       //  while (true) - We are not going to exit the loop since we dont want the enemy to stop.
         {
-            Vector3 _position = new Vector3(Random.Range(-9.37f, 9.37f), 5.42f, 0);
+            Vector3 _position = new Vector3(Random.Range(-10.01f, 10.01f), 6.64f, 0);
             GameObject newEnemy = Instantiate(_enemyPrefab,_position, Quaternion.identity); // This line basically first instantiates an enemy object & then we are storing that enemy to another game object. 
             newEnemy.transform.parent = _enemyContainer.transform;                          //  We are containing the enemy object in an enemy container (Empty Object.)                  
             yield return new WaitForSeconds(3.0f);                                          // Wait for 3 seconds. 

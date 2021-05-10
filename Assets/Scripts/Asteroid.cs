@@ -16,7 +16,6 @@ public class Asteroid : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
-
        //_ExplosionAudio = _AsteroidPrefab.GetComponent<AudioSource>();
     }
 

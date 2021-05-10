@@ -26,7 +26,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject shieldVisual;
     [SerializeField]
-
     private int score;
     private UI_Manager _uiManager;
     /*private bool _rightEngineFailure = false;
@@ -156,6 +155,8 @@ public class Player : MonoBehaviour
 
     public void damage()
     {
+        _lives--; // I had to put it up because when I had put it at the bottom, it was not turning off at 1 life.
+
         if (_isShieldActive == true)
         {
             _isShieldActive = false;
@@ -181,11 +182,8 @@ public class Player : MonoBehaviour
             Destroy(this.gameObject);
             _uiManager.DisplayGameOver();
         }
-        else { 
-        _lives -= 1;
-        }
-
-
+        
+      
         _uiManager.LivesDisplay(_lives);
 
      

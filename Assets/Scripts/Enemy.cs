@@ -11,6 +11,10 @@ public class Enemy : MonoBehaviour
   /*  [SerializeField]
     private GameObject _enemyPrefab;*/
     private AudioSource _ExplosionAudio;
+  /*  [SerializeField]
+    private GameObject _enemyLaser;*/
+    private float _fireRate = 3.5f;
+    private float _Canfire = -1.0f;
 
 
     private void Start()
@@ -35,24 +39,27 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         downwardMovement();
-        respawn(); 
-    }
+/*
+        if (Time.time > _Canfire)
+        {
+            _fireRate = Random.Range(3f, 10f);
+            _Canfire = _fireRate + Time.time;
+            GameObject laser = Instantiate(_enemyLaser, transform.position, Quaternion.identity);
+            Laser[] lasers = laser.GetComponentsInChildren<Laser>();
+            for (int i = 0; i < lasers.Length; i++)
+            {
+                lasers[i].isEnemyLaser();
+            } */
 
-    void downwardMovement()
+       }
+
+        void downwardMovement()
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
     }
 
-    void respawn()
-    {
-        float x = Random.Range(9.21f, -9.21f);
-        if (transform.position.y < -5.41f)
-        {
-            transform.position = new Vector3(x,5.35f, 0);
-        }
-    }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
 
         /*This method only works when trigger was enabled on game objects. Also, we have used the tag from Unity to identify object*/
@@ -84,10 +91,11 @@ public class Enemy : MonoBehaviour
             _enemyAnimator.SetTrigger("OnEnemyDeath");
             _speed = 0;
             _ExplosionAudio.Play();
+            Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject,2.30f);
             
         }
-     
+    
 
     }
 }
